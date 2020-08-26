@@ -1,4 +1,16 @@
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <signal.h>
+
+#include <unistd.h>
+#include <fcntl.h>
+
+#include <sys/time.h>
+#include <sys/types.h>
+#include <sys/termios.h>
+#include <sys/mman.h>
 
 /* 65536 locations  */
 uint16_t memory[UINT16_MAX];
@@ -13,7 +25,7 @@ enum{
 	R_R5,
 	R_R6,
 	R_R7,
-	R_PC, /* Program counter*/
+	R_PC,   // program counter
 	R_COND,
 	R_COUNT
 };
@@ -23,6 +35,12 @@ enum{
 	FL_POS = 1 << 0, // P
 	FL_ZRO = 1 << 1, // Z
 	FL_NEG = 1 << 2  // N
+};
+
+/* Memory Mapped Registers */
+enum{
+	MR_KBSR = 0xFE00, //
+	MR_KBDR = 0xFE02  // keyboard data
 };
 
 uint16_t reg[R_COUNT];
@@ -47,6 +65,186 @@ enum{
 	OP_TRAP		 // execute trap
 };
 
+uint16_t check_key(){
+	fd_set readfds;
+	FD_ZERO(&readfds);
+	FD_SET(STDIN_FILENO, &readfds);
+
+	struct timeval timeout;
+	timeout.tv_sec = 0;
+	timeout.tv_usec = 0;
+
+	return select(1, &readfds, NULL, NULL, &timeout) != 0;
+}
+
+uint16_t mem_read(uint16_t address){
+	if(address == MR_KBSR){
+		if(check_key()){
+			memory[MR_KBSR] = (1 << 15);
+			memory[MR_KBDR] = getchar();
+		}
+		else{
+			memory[MR_KBSR] = 0;
+		}
+	}
+
+	return memory[address];
+}
+
+struct termios original_tio;
+
+void disable_input_buffering(){
+	tcgetattr(STDIN_FILENO, &original_tio);
+	struct termios new_tio = original_tio;
+	new_tio.c_lflag &= ~ICANON & ~ECHO;
+	tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
+}
+
+void restore_input_buffering(){
+	tcsetattr(STDIN_FILENO, TCSANOW, &original_tio);
+}
+
+void handle_interrupt(int signal){
+	restore_input_buffering();
+	printf("\n");
+	exit(-2);
+}
+
+uint16_t swap16(uint16_t x){
+	return (x << 8) | (x >> 8);
+}
+
+// Read image file
+void read_image_file(FILE* file){
+	// place image in memory
+	uint16_t origin;
+
+	fread(&origin, sizeof(origin), 1, file);
+	origin = swap16(origin);
+
+	// max file size known
+	uint16_t max_read = UINT16_MAX - origin;
+	uint16_t* p = memory + origin;
+
+	size_t read = fread(p, sizeof(uint16_t), max_read, file);
+
+	// swap to little endian
+	while(read-- > 0){
+		*p = swap16(*p);
+		++p;
+	}
+}
+
+// Read image
+int read_image(const char* image_path){
+	FILE* file = fopen(image_path, "rb");
+
+	if(!file) return 0;
+
+	read_image_file(file);
+
+	fclose(file);
+
+	return 1;
+}
+
 int main(int argc, const char* argv[1]){
-	return 0; // temporary here
+	// Load arguments
+	// expecting one or more paths to VM images
+	if(argc<2){
+		//show usage string
+		printf("lc3_vm [image_file1] ...\n");
+		exit(2);
+	}
+
+	for(int j=0;j<argc;++j){
+		if(!read_image(argv[j])){
+			printf("failed to load image: %s\n", argv[j]);
+			exit(1);
+		}
+	}
+
+	// Setup
+	signal(SIGINT, handle_interrupt);
+	disable_input_buffering();
+
+	// set the PC to starting position
+	// 0x3000 is the default
+	enum{ PC_START = 0x3000 };
+	reg[R_PC] = PC_START;
+
+	int running = 1;
+
+	while(running){
+		// Load instruction from memory at address from PC register
+		uint16_t instr = mem_read(reg[R_PC]++);
+		uint16_t op = instr >> 12;
+
+		switch(op){
+			case OP_ADD:
+				// TODO
+				break;
+
+			case OP_AND:
+				// TODO
+				break;
+
+		  case OP_NOT:
+				// TODO
+				break;
+
+			case OP_BR:
+				// TODO
+				break;
+
+			case OP_JMP:
+				// TODO
+				break;
+
+			case OP_JSR:
+				// TODO
+				break;
+
+			case OP_LD:
+				// TODO
+				break;
+
+			case OP_LDI:
+				// TODO
+				break;
+
+			case OP_LDR:
+				// TODO
+				break;
+
+			case OP_LEA:
+				// TODO
+				break;
+
+			case OP_ST:
+				// TODO
+				break;
+
+			case OP_STI:
+				// TODO
+				break;
+
+			case OP_STR:
+				// TODO
+				break;
+
+			case OP_TRAP:
+				// TODO
+				break;
+
+			case OP_RES:
+			case OP_RTI:
+			default:
+				//TODO: BAD OPCODE
+				break;
+		}
+	}
+
+	// Shutdown
+	restore_input_buffering();
 }
