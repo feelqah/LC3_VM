@@ -157,7 +157,7 @@ int main(int argc, const char* argv[1]){
 		exit(2);
 	}
 
-	for(int j=0;j<argc;++j){
+	for(int j=1;j<argc;++j){
 		if(!read_image(argv[j])){
 			printf("failed to load image: %s\n", argv[j]);
 			exit(1);
