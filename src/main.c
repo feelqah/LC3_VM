@@ -169,7 +169,7 @@ int read_image(const char* image_path){
 	return 1;
 }
 
-int main(int argc, const char* argv[1]){
+int main(int argc, const char* argv[]){
 	// Load arguments
 	// expecting one or more paths to VM images
 	if(argc<2){
