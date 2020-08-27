@@ -7,7 +7,7 @@ SRC := $(wildcard $(SRC_DIR)/*.c)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CPPFLAGS := -Iinc -MMD -MP
-CFLAGS   := -Wall
+CFLAGS   := -Wall -g
 LDFLAGS  := -Llib
 LDLIBS   := -lm
 
