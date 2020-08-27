@@ -117,26 +117,7 @@ int read_image(const char* image_path){
     return 1;
 }
 
-int main(int argc, const char* argv[]){
-    // Load arguments
-    // expecting one or more paths to VM images
-    if(argc<2){
-    //show usage string
-    printf("lc3_vm [image_file1] ...\n");
-    exit(2);
-    }
-
-    for(int j=1;j<argc;++j){
-        if(!read_image(argv[j])){
-            printf("failed to load image: %s\n", argv[j]);
-            exit(1);
-        }
-    }
-
-    // Setup
-    signal(SIGINT, handle_interrupt);
-    disable_input_buffering();
-
+void handle_instructions(){
     // set the PC to starting position
     // 0x3000 is the default
     enum{ PC_START = 0x3000 };
@@ -269,6 +250,38 @@ int main(int argc, const char* argv[]){
                 break;
         }
     }
+}
+
+void setup_terminal_input(){
+    signal(SIGINT, handle_interrupt);
+    disable_input_buffering();
+}
+
+void load_arguments(int argc, char* argv[]){
+    // expecting one or more VM image paths
+    if(argc < 2){
+        // show usage string
+        printf("lc3_vm [path_to_image_file1] ...\n");
+        exit(2);
+    }
+
+    for(int j=1;j<argc;j++){
+        if(!read_image(argv[j])){
+            printf("failed to load image: %s\n", argv[j]);
+            exit(1);
+        }
+    }
+}
+
+int main(int argc, char* argv[]){
+    // Load arguments
+    load_arguments(argc, argv);
+
+    // Setup
+    setup_terminal_input();
+
+    // Handle instructions
+    handle_instructions();
 
     // Shutdown
     restore_input_buffering();
