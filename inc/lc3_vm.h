@@ -1,6 +1,9 @@
 // TODO: Add documentation
+#include <stdint.h>
+#include <stdio.h>
+
 /* 65536 locations */
-uint16_t memory[UINT16_MAX];
+extern uint16_t memory[UINT16_MAX];
 
 /* Registers */
 enum{
@@ -18,7 +21,7 @@ enum{
 };
 
 /* Register Storage  */
-uint16_t reg[R_COUNT];
+extern uint16_t reg[R_COUNT];
 
 enum{
 	FL_POS = 1 << 0, // P
@@ -73,4 +76,8 @@ uint16_t check_key(void);
 void update_flags(uint16_t r);
 
 uint16_t sign_extend(uint16_t x, int bit_count);
+
+void lc3_vm(int argc, char* argv[]);
+
+int add(char* image_path[]);
 
