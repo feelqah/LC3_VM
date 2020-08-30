@@ -202,7 +202,7 @@ void handle_instructions(){
                 {
                     // also handles RET
                     uint16_t base = (instr >> 6) & 0x7;
-                    reg[R_PC] = base;
+                    reg[R_PC] = R[base];
                 }
                 break;
 
