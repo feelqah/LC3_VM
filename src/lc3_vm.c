@@ -199,7 +199,11 @@ void handle_instructions(){
                 break;
 
             case OP_JMP:
-                // TODO
+                {
+                    // also handles RET
+                    uint16_t base = (instr >> 6) & 0x7;
+                    reg[R_PC] = base;
+                }
                 break;
 
             case OP_JSR:
