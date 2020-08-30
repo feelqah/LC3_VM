@@ -49,6 +49,10 @@ uint16_t check_key(){
     return select(1, &readfds, NULL, NULL, &timeout) != 0;
 }
 
+void mem_write(uint16_t address, uint16_t val){
+    memory[address] = val;
+}
+
 uint16_t mem_read(uint16_t address){
     if(address == MR_KBSR){
         if(check_key()){
@@ -267,7 +271,12 @@ void handle_instructions(){
                 break;
 
             case OP_ST:
-                // TODO
+                {
+                    uint16_t r0 = (instr >> 9) & 0x7;
+                    uint16_t pc_offset = sign_extend(instr & 0x1FF, 9);
+
+                    mem_write(reg[R_PC] + pc_offset, reg[r0]);
+                }
                 break;
 
             case OP_STI:
