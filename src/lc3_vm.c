@@ -207,7 +207,19 @@ void handle_instructions(){
                 break;
 
             case OP_JSR:
-                // TODO
+                {
+                    uint16_t flag = (instr >> 11) & 1;
+                    reg[R_R7] = reg[R_PC];
+
+                    if(flag){
+                        uint16_t pc_offset = sign_extend(instr & 0x7FF, 11);
+                        reg[R_PC] += pc_offset; // JSR
+                    }
+                    else{
+                        uint16_t base = (instr >> 6) & 0x7;
+                        reg[R_PC] = reg[base]; // JSRR
+                    }
+                }
                 break;
 
             case OP_LD:
