@@ -246,7 +246,14 @@ void handle_instructions(){
                 break;
 
             case OP_LDR:
-                // TODO
+                {
+                    uint16_t r0 = (instr >> 9) & 0x7;
+                    uint16_t base = (instr >> 6) & 0x7;
+                    uint16_t offset = sign_extend(instr & 0x3F, 6);
+
+                    reg[r0] = mem_read(reg[base] + offset);
+                    update_flags(r0);
+                }
                 break;
 
             case OP_LEA:
