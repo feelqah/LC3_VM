@@ -239,7 +239,9 @@ int main(int argc, char* argv[]){
             printf("[Pass]\n");
         }
         else{
-            printf("[Fail]\n"); }
+            printf("[Fail]\n");
+        }
+    }
 
     else{
         printf("Test not found!\n");
