@@ -17,12 +17,10 @@ int add(char* image_path[]){
     // check if R0 contains 1
     if(reg[R_R0] == 1){
         // pass
-        printf("Test: ADD\nPass!\n");
         ret_val = 1;
     }
     else{
         // fail
-        printf("Test: ADD\nFail!\n");
         ret_val = 0;
     }
 
