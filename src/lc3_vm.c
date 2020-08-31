@@ -157,7 +157,7 @@ void handle_instructions(){
                     }
                     update_flags(r0);
                 }
-                running = 0;
+
                 break;
 
             case OP_AND:
