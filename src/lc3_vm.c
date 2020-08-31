@@ -299,13 +299,75 @@ void handle_instructions(){
                 break;
 
             case OP_TRAP:
-                // TODO
+                switch(instr & 0xFF){
+                    case TRAP_GETC:
+                        {
+                            reg[R_R0] = (uint16_t)getchar();
+                        }
+                        break;
+
+                    case TRAP_OUT:
+                        {
+                            putc((char)reg[R_R0], stdout);
+                            fflush(stdout);
+                        }
+                        break;
+
+                    case TRAP_PUTS:
+                        {
+                            // one char per word
+                            uint16_t* c = memory + reg[R_R0];
+
+                            while(*c){
+                                putc((char)*c, stdout);
+                                ++c;
+                            }
+                            fflush(stdout);
+                        }
+                        break;
+
+                    case TRAP_IN:
+                        {
+                            printf("Enter a character: ");
+                            char c = getchar();
+                            putc(c, stdout);
+                            reg[R_R0] = (uint16_t)c;
+                        }
+                        break;
+
+                    case TRAP_PUTSP:
+                        {
+                            // one char per byte (two per word)
+                            // big endian
+                            uint16_t* c = memory + reg[R_R0];
+
+                            while(*c){
+                                char char1 = (*c) & 0xFF;
+                                putc(char1, stdout);
+
+                                char char2 = (*c) >> 8;
+                                if(char2) putc(char2, stdout);
+                                ++c;
+                            }
+                            fflush(stdout);
+                        }
+                        break;
+
+                    case TRAP_HALT:
+                        puts("HALT");
+                        fflush(stdout);
+                        running = 0;
+
+                        break;
+
+                }
                 break;
 
             case OP_RES:
             case OP_RTI:
             default:
-                //TODO: BAD OPCODE
+                // BAD OPCODE
+                abort();
                 break;
         }
     }
