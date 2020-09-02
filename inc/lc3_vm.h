@@ -88,5 +88,3 @@ uint16_t sign_extend(uint16_t x, int bit_count);
 
 void lc3_vm(int argc, char* argv[]);
 
-int add(char* image_path[]);
-
