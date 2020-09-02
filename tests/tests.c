@@ -6,34 +6,29 @@
 int main(int argc, char* argv[]){
     /*
      example usage:
-        ./run_tests "path_to_test.obj"
+        ./run_tests path_to_test.obj path_to_test2.obj ...
      */
 
-    // second argument defines path of image
-    char* image_path = argv[1];
+    for(int i=1;i<argc;i++){
+        char* image_path[2]; // adapted for lc3_vm function which takes argv
 
-    if(strstr(image_path, "add.obj") != 0){
-        printf("ADD test\t");
+        // second argument defines path of image
+        image_path[0] = argv[0];
+        image_path[1] = argv[i];
 
-        if(add(argv)){
-            printf("[Pass]\n");
+        printf("Running test for: %s\n", image_path[1]);
+
+        if(strstr(image_path[1], "/add") != NULL){
+            add(image_path);
+            printf("\n");
         }
-        else{
-            printf("[Fail]\n");
-        }
-    }
 
-    else if(strstr(image_path, "and.obj") == 0){
-        printf("AND test\t");
-
-        if(and(argv)){
-            printf("[Pass]\n");
-        }
-        else{
-            printf("[Fail]\n");
+        else if(strstr(image_path[1], "/and") != NULL){
+            and(image_path);
+            printf("\n");
         }
     }
-
+/*
     else if(strstr(image_path, "not.obj") == 0){
         printf("NOT test\t");
 
@@ -247,6 +242,6 @@ int main(int argc, char* argv[]){
         printf("Test not found!\n");
         printf("'%s' doesn't exist\n", image_path);
     }
-
+    */
     return 0;
 }
