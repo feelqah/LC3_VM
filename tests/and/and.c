@@ -15,21 +15,16 @@ int and(char* image_path[]){
 
     lc3_vm(2, image_path); // passing 2 instead of argc
 
-    printf("\nAND test\t");
-    printf("ADD R0, R0, x0\t; clear R0\n");
-    printf("ADD R0, R0, 7\t; set R0 to 7 (1011)\n");
-    printf("AND R1, R0, 9\t; AND R0 with 9 (1001) and store (result: 1) in R1");
-
     // check if R1 contains expected result
     if(reg[R_R1] == expected_result){
         // pass
-        printf("Expected result is:\t%d\nResult in R1 is:\t%d\t\t[PASS]\n",
+        printf("Expected result is:\t%d\nResult in R1 is:\t%d\t\t",
                 expected_result, reg[R_R1]);
         ret_val = 1;
     }
     else{
         // fail
-        printf("Expected result is:\t%d\nResult in R1 is:\t%d\t\t[FAIL]\n",
+        printf("Expected result is:\t%d\nResult in R1 is:\t%d\t\t",
                 expected_result, reg[R_R1]);
         ret_val = 0;
     }

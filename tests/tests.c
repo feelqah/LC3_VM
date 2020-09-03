@@ -64,7 +64,12 @@ int main(int argc, char* argv[]){
         }
 
         else if(strstr(image_path[1], "/and") != NULL){
-            and(image_path);
+            if(and(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
             printf("\n");
         }
     }
