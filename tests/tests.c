@@ -3,6 +3,21 @@
 
 #include "tests.h"
 
+
+int print_file(char* path){
+    int c = 0;
+    FILE* file = fopen(path, "r");
+
+    if(!file) return 0;
+
+    while((c = getc(file)) != EOF){
+        putchar(c);
+    }
+
+    fclose(file);
+    return 1;
+}
+
 int main(int argc, char* argv[]){
     /*
      example usage:

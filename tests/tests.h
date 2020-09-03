@@ -1,5 +1,7 @@
 //TODO: Add documentation
 
+int print_file(char* path);
+
 int add(char* image_path[]);
 int and(char* image_path[]);
 
