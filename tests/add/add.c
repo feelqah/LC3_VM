@@ -2,6 +2,7 @@
 #include <stdint.h>
 
 #include "lc3_vm.h"
+#include "tests.h"
 
 int add(char* image_path[]){
     /* load object asm test file
@@ -13,9 +14,7 @@ int add(char* image_path[]){
 
     lc3_vm(2, image_path); // passing 2 instead of argc
 
-    printf("\nADD test:\n");
-    printf("AND R0, R0, x0\t;Clear R0\n");
-    printf("ADD R0, R0, 5\t;Add R0 with 5 and store in R0\n\n");
+    print_file("tests/add/add.asm");
 
     // check if R0 contains expected result
     if(reg[R_R0] == expected_result){
