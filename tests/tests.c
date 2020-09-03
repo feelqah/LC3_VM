@@ -1,11 +1,23 @@
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "tests.h"
 
+char* change_extension(char* path, char* extension){
+    size_t len = strlen(path);
+    char* temp_path = malloc(sizeof(char) * len-3);
+
+    strncpy(temp_path, path, len-3);
+
+    strcat(temp_path, extension);
+
+    return temp_path;
+}
 
 int print_file(char* path){
     int c = 0;
+
     FILE* file = fopen(path, "r");
 
     if(!file) return 0;
@@ -33,8 +45,21 @@ int main(int argc, char* argv[]){
 
         printf("Running test for: %s\n", image_path[1]);
 
+        // image_path contains .obj file, we need to print .asm instead
+        char* asm_file_path = change_extension(image_path[1], "asm");
+
+        printf("Assembly code of test:\n");
+        print_file(asm_file_path);
+
+        free(asm_file_path);
+
         if(strstr(image_path[1], "/add") != NULL){
-            add(image_path);
+            if(add(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
             printf("\n");
         }
 
