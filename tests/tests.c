@@ -60,7 +60,6 @@ int main(int argc, char* argv[]){
             else{
                 printf("[FAIL]\n");
             }
-            printf("\n");
         }
 
         else if(strstr(image_path[1], "/and") != NULL){
@@ -70,9 +69,8 @@ int main(int argc, char* argv[]){
             else{
                 printf("[FAIL]\n");
             }
-            printf("\n");
         }
-    }
+
 /*
     else if(strstr(image_path, "not.obj") == 0){
         printf("NOT test\t");
@@ -282,11 +280,15 @@ int main(int argc, char* argv[]){
             printf("[Fail]\n");
         }
     }
-
-    else{
-        printf("Test not found!\n");
-        printf("'%s' doesn't exist\n", image_path);
-    }
     */
+        else{
+            printf("Test not found!\n");
+            printf("'%s' doesn't exist\n", image_path[1]);
+        }
+
+        printf("%s\n\n", "==============================================");
+
+    } // End of for loop
+
     return 0;
 }
