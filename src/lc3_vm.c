@@ -354,8 +354,9 @@ void handle_instructions(){
                         break;
 
                     case TRAP_HALT:
-                        puts("HALT");
-                        fflush(stdout);
+                        // commented out for testing
+                        //puts("HALT");
+                        //fflush(stdout);
                         running = 0;
 
                         break;
