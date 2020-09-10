@@ -110,6 +110,17 @@ int main(int argc, char* argv[]){
         }
     }
 
+
+    else if(strstr(image_path[1], "/ldi") != NULL){
+
+        if(ldi(image_path)){
+            printf("[PASS]\n");
+        }
+        else{
+            printf("[FAIL]\n");
+        }
+    }
+
     else if(strstr(image_path[1], "/ld") != NULL){
         if(ld(image_path)){
             printf("[PASS]\n");
@@ -119,17 +130,6 @@ int main(int argc, char* argv[]){
         }
     }
 /*
-    else if(strstr(image_path, "ldi.obj") == 0){
-        printf("LDI test\t");
-
-        if(ldi(argv)){
-            printf("[Pass]\n");
-        }
-        else{
-            printf("[Fail]\n");
-        }
-    }
-
     else if(strstr(image_path, "ldr.obj") == 0){
         printf("LDR test\t");
 
