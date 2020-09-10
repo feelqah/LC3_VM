@@ -109,18 +109,16 @@ int main(int argc, char* argv[]){
             printf("[FAIL]\n");
         }
     }
-/*
-    else if(strstr(image_path, "ld.obj") == 0){
-        printf("LD test\t");
 
-        if(ld(argv)){
-            printf("[Pass]\n");
+    else if(strstr(image_path[1], "/ld") != NULL){
+        if(ld(image_path)){
+            printf("[PASS]\n");
         }
         else{
-            printf("[Fail]\n");
+            printf("[FAIL]\n");
         }
     }
-
+/*
     else if(strstr(image_path, "ldi.obj") == 0){
         printf("LDI test\t");
 
