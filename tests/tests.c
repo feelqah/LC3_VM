@@ -100,18 +100,16 @@ int main(int argc, char* argv[]){
                 printf("[FAIL]\n");
             }
         }
-    /*
-    else if(strstr(image_path, "jsr.obj") == 0){
-        printf("JSR test\t");
 
-        if(jsr(argv)){
-            printf("[Pass]\n");
+    else if(strstr(image_path[1], "/jsr") != NULL){
+        if(jsr(image_path)){
+            printf("[PASS]\n");
         }
         else{
-            printf("[Fail]\n");
+            printf("[FAIL]\n");
         }
     }
-
+/*
     else if(strstr(image_path, "ld.obj") == 0){
         printf("LD test\t");
 
