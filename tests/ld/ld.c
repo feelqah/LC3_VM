@@ -10,7 +10,9 @@ int ld(char* image_path[]){
        it contains the following asm code in binary:
 
         LD R0, SOME_LABEL
-        SOME_LABEL: HALT    ; 0x3001 address
+        HALT
+
+        SOME_LABEL: .FILL x666
     */
     lc3_vm(2, image_path); // passing 2 instead of argc
 
