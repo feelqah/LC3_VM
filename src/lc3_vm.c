@@ -133,6 +133,13 @@ void handle_instructions(){
     int running = 1;
 
     while(running){
+        // check for program counter overflow
+        int is_max = reg[R_PC] == UINT16_MAX; // if no HALT instruction is present
+        if(is_max){
+            printf("Program counter overflow!\nNo HALT instruction!\n");
+            restore_input_buffering();
+            exit(1);
+        }
         // Load instruction from memory at address from PC register
         uint16_t instr = mem_read(reg[R_PC]++);
         uint16_t op = instr >> 12;
