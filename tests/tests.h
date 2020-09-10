@@ -2,6 +2,7 @@
 
 int add(char* image_path[]);
 int and(char* image_path[]);
+int br(char* image_path[]);
 
 /*
 int not(char* image_path[]);

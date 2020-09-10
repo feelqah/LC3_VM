@@ -82,18 +82,16 @@ int main(int argc, char* argv[]){
             printf("[Fail]\n");
         }
     }
-
-    else if(strstr(image_path, "br.obj") == 0){
-        printf("BR test\t");
-
-        if(br(argv)){
-            printf("[Pass]\n");
+*/
+        else if(strstr(image_path[1], "/br") != NULL){
+            if(br(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
         }
-        else{
-            printf("[Fail]\n");
-        }
-    }
-
+/*
     else if(strstr(image_path, "jmp.obj") == 0){
         printf("JMP test\t");
 
