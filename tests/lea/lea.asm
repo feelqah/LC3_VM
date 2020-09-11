@@ -1,0 +1,4 @@
+.ORIG x3000
+LEA R0, #1
+HALT
+
