@@ -101,46 +101,42 @@ int main(int argc, char* argv[]){
             }
         }
 
-    else if(strstr(image_path[1], "/jsr") != NULL){
-        if(jsr(image_path)){
-            printf("[PASS]\n");
+        else if(strstr(image_path[1], "/jsr") != NULL){
+            if(jsr(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
         }
-        else{
-            printf("[FAIL]\n");
-        }
-    }
 
+        else if(strstr(image_path[1], "/ldi") != NULL){
+            if(ldi(image_path)){
+               printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
+        }
 
-    else if(strstr(image_path[1], "/ldi") != NULL){
+        else if(strstr(image_path[1], "/ldr") != NULL){
+            if(ldr(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
+        }
 
-        if(ldi(image_path)){
-            printf("[PASS]\n");
+        else if(strstr(image_path[1], "/ld") != NULL){
+            if(ld(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
         }
-        else{
-            printf("[FAIL]\n");
-        }
-    }
-
-    else if(strstr(image_path[1], "/ld") != NULL){
-        if(ld(image_path)){
-            printf("[PASS]\n");
-        }
-        else{
-            printf("[FAIL]\n");
-        }
-    }
 /*
-    else if(strstr(image_path, "ldr.obj") == 0){
-        printf("LDR test\t");
-
-        if(ldr(argv)){
-            printf("[Pass]\n");
-        }
-        else{
-            printf("[Fail]\n");
-        }
-    }
-
     else if(strstr(image_path, "lea.obj") == 0){
         printf("LEA test\t");
 

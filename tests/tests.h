@@ -7,6 +7,7 @@ int jmp(char* image_path[]);
 int jsr(char* image_path[]);
 int ld(char* image_path[]);
 int ldi(char* image_path[]);
+int ldr(char* image_path[]);
 
 /*
 int not(char* image_path[]);
