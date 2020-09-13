@@ -71,18 +71,15 @@ int main(int argc, char* argv[]){
             }
         }
 
-/*
-    else if(strstr(image_path, "not.obj") == 0){
-        printf("NOT test\t");
+        else if(strstr(image_path[1], "/not") != NULL){
+            if(not(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
+        }
 
-        if(not(argv)){
-            printf("[Pass]\n");
-        }
-        else{
-            printf("[Fail]\n");
-        }
-    }
-*/
         else if(strstr(image_path[1], "/br") != NULL){
             if(br(image_path)){
                 printf("[PASS]\n");
