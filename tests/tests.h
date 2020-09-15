@@ -12,6 +12,7 @@ int lea(char* image_path[]);
 int not(char* image_path[]);
 int st(char* image_path[]);
 int sti(char* image_path[]);
+int str(char* image_path[]);
 
 /*
 int not(char* image_path[]);
