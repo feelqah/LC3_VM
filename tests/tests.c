@@ -143,6 +143,14 @@ int main(int argc, char* argv[]){
             }
         }
 
+        else if(strstr(image_path[1], "/sti") != NULL){
+            if(sti(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
+        }
         else if(strstr(image_path[1], "/st") != NULL){
             if(st(image_path)){
                 printf("[PASS]\n");
@@ -151,18 +159,9 @@ int main(int argc, char* argv[]){
                 printf("[FAIL]\n");
             }
          }
+
+
 /*
-    else if(strstr(image_path, "sti.obj") == 0){
-        printf("STI test\t");
-
-        if(sti(argv)){
-            printf("[Pass]\n");
-        }
-        else{
-            printf("[Fail]\n");
-        }
-    }
-
     else if(strstr(image_path, "str.obj") == 0){
         printf("STR test\t");
 
