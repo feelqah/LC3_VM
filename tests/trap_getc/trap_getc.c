@@ -38,5 +38,8 @@ int trap_getc(char* image_path[]){
     printf("Expected result is:\t%d\nResult in R0 is:\t%d\t\t",
             expected_result, reg[R_R0]);
 
+    fclose(in);
+    fclose(out);
+
     return ret_val;
 }
