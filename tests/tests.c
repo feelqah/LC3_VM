@@ -170,21 +170,15 @@ int main(int argc, char* argv[]){
             }
          }
 
-
-
-
+        else if(strstr(image_path[1], "/trap_getc") != NULL){
+            if(trap_getc(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
+        }
 /*
-    else if(strstr(image_path, "trap_getc.obj") == 0){
-        printf("TRAP GETC test\t");
-
-        if(trap_getc(argv)){
-            printf("[Pass]\n");
-        }
-        else{
-            printf("[Fail]\n");
-        }
-    }
-
     else if(strstr(image_path, "trap_out.obj") == 0){
         printf("TRAP OUT test\t");
 
