@@ -6,10 +6,12 @@
 
 char* change_extension(char* path, char* extension){
     size_t len = strlen(path);
-    char* temp_path = malloc(sizeof(char) * len-3);
+    char* temp_path = malloc(sizeof(char) * len);
 
+    // strip .obj from file path
     strncpy(temp_path, path, len-3);
 
+    // add extension to path
     strcat(temp_path, extension);
 
     return temp_path;
@@ -178,18 +180,16 @@ int main(int argc, char* argv[]){
                 printf("[FAIL]\n");
             }
         }
+
+        else if(strstr(image_path[1], "/trap_out") != NULL){
+            if(trap_out(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
+        }
 /*
-    else if(strstr(image_path, "trap_out.obj") == 0){
-        printf("TRAP OUT test\t");
-
-        if(trap_out(argv)){
-            printf("[Pass]\n");
-        }
-        else{
-            printf("[Fail]\n");
-        }
-    }
-
     else if(strstr(image_path, "trap_puts.obj") == 0){
         printf("TRAP PUTS test\t");
 
