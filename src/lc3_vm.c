@@ -49,6 +49,75 @@ uint16_t check_key(){
     return select(1, &readfds, NULL, NULL, &timeout) != 0;
 }
 
+int execute_trap(uint16_t instr, FILE *in, FILE *out){
+    int running = 1;
+    switch(instr & 0xFF){
+        case TRAP_GETC:
+            {
+                reg[R_R0] = (uint16_t)getc(in);
+            }
+            break;
+
+        case TRAP_OUT:
+            {
+                putc((char)reg[R_R0], out);
+                fflush(out);
+            }
+            break;
+
+        case TRAP_PUTS:
+            {
+                // one char per word
+                uint16_t* c = memory + reg[R_R0];
+
+                while(*c){
+                    putc((char)*c, out);
+                    ++c;
+                }
+                fflush(out);
+            }
+            break;
+
+        case TRAP_IN:
+            {
+                fprintf(out, "Enter a character: ");
+                fflush(out);
+
+                char c = getc(in);
+                putc(c, out);
+                reg[R_R0] = (uint16_t)c;
+                fflush(out);
+            }
+            break;
+
+        case TRAP_PUTSP:
+            {
+                // one char per byte (two per word)
+                // big endian
+                uint16_t* c = memory + reg[R_R0];
+
+                while(*c){
+                    char char1 = (*c) & 0xFF;
+                    putc(char1, out);
+
+                    char char2 = (*c) >> 8;
+                    if(char2) putc(char2, out);
+                    ++c;
+                }
+                fflush(out);
+            }
+            break;
+
+        case TRAP_HALT:
+            // commented out for testing
+            //puts("HALT");
+            //fflush(stdout);
+            running = 0;
+            break;
+    }
+    return running;
+}
+
 void mem_write(uint16_t address, uint16_t val){
     memory[address] = val;
 }
@@ -306,69 +375,7 @@ void handle_instructions(){
                 break;
 
             case OP_TRAP:
-                switch(instr & 0xFF){
-                    case TRAP_GETC:
-                        {
-                            reg[R_R0] = (uint16_t)getchar();
-                        }
-                        break;
-
-                    case TRAP_OUT:
-                        {
-                            putc((char)reg[R_R0], stdout);
-                            fflush(stdout);
-                        }
-                        break;
-
-                    case TRAP_PUTS:
-                        {
-                            // one char per word
-                            uint16_t* c = memory + reg[R_R0];
-
-                            while(*c){
-                                putc((char)*c, stdout);
-                                ++c;
-                            }
-                            fflush(stdout);
-                        }
-                        break;
-
-                    case TRAP_IN:
-                        {
-                            printf("Enter a character: ");
-                            char c = getchar();
-                            putc(c, stdout);
-                            reg[R_R0] = (uint16_t)c;
-                        }
-                        break;
-
-                    case TRAP_PUTSP:
-                        {
-                            // one char per byte (two per word)
-                            // big endian
-                            uint16_t* c = memory + reg[R_R0];
-
-                            while(*c){
-                                char char1 = (*c) & 0xFF;
-                                putc(char1, stdout);
-
-                                char char2 = (*c) >> 8;
-                                if(char2) putc(char2, stdout);
-                                ++c;
-                            }
-                            fflush(stdout);
-                        }
-                        break;
-
-                    case TRAP_HALT:
-                        // commented out for testing
-                        //puts("HALT");
-                        //fflush(stdout);
-                        running = 0;
-
-                        break;
-
-                }
+                running = execute_trap(instr, stdin, stdout);
                 break;
 
             case OP_RES:

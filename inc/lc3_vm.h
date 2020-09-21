@@ -88,3 +88,11 @@ uint16_t sign_extend(uint16_t x, int bit_count);
 
 void lc3_vm(int argc, char* argv[]);
 
+void load_arguments(int argc, char* argv[]);
+
+void setup_terminal_input();
+
+void restore_input_buffering();
+
+int execute_trap(uint16_t instr, FILE *in, FILE *out);
+
