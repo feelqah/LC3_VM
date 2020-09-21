@@ -8,6 +8,8 @@ int trap_getc(char* image_path[]){
     int expected_result = 97; // a in ASCII
     /* load object asm test file
        it contains the following asm code in binary:
+       TRAP x20
+       HALT
     */
     char in_buffer[] = {"a"};
     FILE *in = fmemopen(in_buffer, sizeof(in_buffer), "r");
