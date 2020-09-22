@@ -216,40 +216,16 @@ int main(int argc, char* argv[]){
                 printf("[FAIL]\n");
             }
         }
-/*
-    else if(strstr(image_path, "trap_halt.obj") == 0){
-        printf("TRAP HALT test\t");
 
-        if(trap_halt(argv)){
-            printf("[Pass]\n");
+        else if(strstr(image_path[1], "/trap_halt") != NULL){
+            if(trap_halt(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
         }
-        else{
-            printf("[Fail]\n");
-        }
-    }
 
-    else if(strstr(image_path, "res.obj") == 0){
-        printf("RES test\t");
-
-        if(res(argv)){
-            printf("[Pass]\n");
-        }
-        else{
-            printf("[Fail]\n");
-        }
-    }
-
-    else if(strstr(image_path, "rti.obj") == 0){
-        printf("RTI test\t");
-
-        if(rti(argv)){
-            printf("[Pass]\n");
-        }
-        else{
-            printf("[Fail]\n");
-        }
-    }
-    */
         else{
             printf("Test not found!\n");
             printf("'%s' doesn't exist\n", image_path[1]);
