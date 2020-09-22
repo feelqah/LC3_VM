@@ -32,7 +32,7 @@ int trap_halt(char* image_path[]){
         // pass
         ret_val = 1;
     }
-    
+
     printf("Expected result is:\t%s\nResult in output buffer is:\t%s\t\t",
             expected_result, out_buffer);
 
