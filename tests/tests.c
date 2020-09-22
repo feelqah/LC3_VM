@@ -198,18 +198,16 @@ int main(int argc, char* argv[]){
                 printf("[FAIL]\n");
             }
        }
+
+        else if(strstr(image_path[1], "/trap_in") != NULL){
+            if(trap_in(image_path)){
+                printf("[PASS]\n");
+            }
+            else{
+                printf("[FAIL]\n");
+            }
+        }
 /*
-    else if(strstr(image_path, "trap_in.obj") == 0){
-        printf("TRAP IN test\t");
-
-        if(trap_in(argv)){
-            printf("[Pass]\n");
-        }
-        else{
-            printf("[Fail]\n");
-        }
-    }
-
     else if(strstr(image_path, "trap_putsp.obj") == 0){
         printf("TRAP PUTSP test\t");
 

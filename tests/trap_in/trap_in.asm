@@ -1,0 +1,4 @@
+.ORIG x3000
+TRAP x23
+HALT
+
