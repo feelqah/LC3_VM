@@ -110,8 +110,8 @@ int execute_trap(uint16_t instr, FILE *in, FILE *out){
 
         case TRAP_HALT:
             // commented out for testing
-            //puts("HALT");
-            //fflush(stdout);
+            puts("HALT");
+            fflush(out);
             running = 0;
             break;
     }
