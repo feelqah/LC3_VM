@@ -15,6 +15,7 @@ int sti(char* image_path[]);
 int str(char* image_path[]);
 int trap_getc(char* image_path[]);
 int trap_out(char* image_path[]);
+int trap_puts(char* image_path[]);
 
 /*
 int not(char* image_path[]);
