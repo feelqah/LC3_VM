@@ -29,18 +29,13 @@ int br(char* image_path[]){
     lc3_vm(2, image_path); // passing 2 instead of argc
 
     // check if Program counter register is now at expected_result
-    if((reg[R_PC]) == expected_result){
+    if(reg[R_PC] == expected_result){
         // pass
-        printf("Expected result is:\t%#x\nResult in PC is:\t%#x\t\t",
-                expected_result, reg[R_PC]);
         ret_val = 1;
     }
-    else{
-        // fail
-        printf("Expected result is:\t%#x\nResult in PC is:\t%#x\t\t",
-                expected_result, reg[R_PC]);
-        ret_val = 0;
-    }
+
+    printf("Expected result is:\t%#x\nResult in PC is:\t%#x\t\t",
+            expected_result, reg[R_PC]);
 
     return ret_val;
 }
