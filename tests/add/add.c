@@ -16,16 +16,10 @@ int add(char* image_path[]){
     // check if R0 contains expected result
     if(reg[R_R0] == expected_result){
         // pass
-        printf("Expected result is:\t%d\nResult in R0 is:\t%d\t\t",
-                expected_result, reg[R_R0]);
         ret_val = 1;
     }
-    else{
-        // fail
-        printf("Expected result is:\t%d\nResult in R0 is:\t%d\t\t",
-                expected_result, reg[R_R0]);
-        ret_val = 0;
-    }
+    printf("Expected result is:\t%d\nResult in R0 is:\t%d\t\t",
+            expected_result, reg[R_R0]);
 
     return ret_val;
 }
