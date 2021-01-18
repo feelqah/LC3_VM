@@ -17,9 +17,10 @@ make
 ```
 lc3_vm program is located in the bin dir.
 
-example usage:
+For running the lc3_vm:
+```bash
 ./lc3_vm assembly_examples/obj/2048.obj
-
+```
 
 For building tests:
 ```bash
@@ -27,9 +28,10 @@ make test
 ```
 run_tests program is located in root dir.
 
-example usage:
+For running the tests:
+```bash
 ./run_tests tests/add/add.obj
-
+```
 
 ## Contributing
 
